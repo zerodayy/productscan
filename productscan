@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct product{
+    int code;
+    char name[40];
+    float price;
+};
+
+int find_product(struct product *, int,int);
+
+
+int main(){
+
+int i;
+struct product *P;
+int N;
+int p_code;
+int found;
+int choice;
+
+
+printf("\n Insert product amount:");
+scanf("\n %d",&N);
+
+P=malloc(N*sizeof(struct product));
+
+for(i=0; i<N; i++){
+    printf("\n Insert product's %d code, name, price:",i+1);
+    scanf("\n %d %s %f",&P[i].code,&P[i].name,&P[i].price);
+}
+
+printf("\n\nSuccess:Products Inserted!");
+printf("\nPress 1 if you want to find a product \nOr press 0 if you want to exit..");
+scanf("%d",&choice);
+
+
+
+if(choice==1){
+printf("\n Find a product:");
+printf("\n Insert code:");
+scanf("\n %d", &p_code);
+
+
+if(find_product(P,p_code,N)==1){
+    for(i=0; i<N; i++){
+        if(P[i].code==p_code)
+            found=i;
+        }
+    printf("\nProduct found with code:%d ,name:%s ,price:%f",P[found].code,P[found].name,P[found].price);
+}
+}
+else if(choice==0){
+    printf("\nProgram will now exit..")
+return -1;
+}
+else
+printf("\n\nNot acceptable choice , please try again , the program will now exit..");
+
+printf("\n");
+
+
+return 0;
+}
+
+int find_product(struct product *P, int codes,int N){
+int i;
+int is_found=0;
+for(i=0; i<N; i++){
+    if(codes==P[i].code)
+        is_found++;
+    }
+
+    if(is_found==0)
+    return -1;
+    else
+    return 1;
+}
